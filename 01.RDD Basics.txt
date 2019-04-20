@@ -1,0 +1,104 @@
+
+
+Basic Information RDD 
+
+RDD Related Functions :
+
+parallelize the spark RDD 
+
+rdd = sc.parallelize([(1,1)])
+
+type(rdd)
+
+rdd.count()
+
+# Get the number of the partitions 
+
+rdd.getNumPartitions()
+
+#01 Get the count based on the Key 
+
+rdd = sc.parallelize([('a',1),('a',2),('b',8)])
+rdd.countByKey()
+
+Out[19]: defaultdict(<type 'int'>, {'a': 2, 'b': 1})
+
+#02 Get the count based on the value 
+
+rdd.countByValue()
+
+Out[22]: defaultdict(<type 'int'>, {('a', 1): 1, ('b', 8): 1, ('a', 2): 1})
+
+#03 : CollectAsMap will update value
+
+rdd1 = sc.parallelize([('a',8),('a',1000000),('b',10)])
+rdd1.collectAsMap()
+
+Out[23]: {'a': 2, 'b': 8}
+
+
+rdd1 = sc.parallelize([('a',8),('a',1000000),('a',0000),('b',10)])
+rdd1.collectAsMap()
+
+Out[27]: {'a': 0, 'b': 10}
+
+
+#04 : Sum of element of RDDs
+
+rdd3 = sc.parallelize(range(100))
+rdd3.sum()
+
+Out[32]: 4950
+
+
+rdd4 = sc.parallelize([4,5,7,8,])
+rdd4.sum()
+
+Out[35]: 24
+
+
+#05 Check whether RDD is empty or not
+
+rdd4.isEmpty()
+
+False
+
+a = sc.parallelize([])
+a.isEmpty()
+
+Out[39]: True
+
+
+Maximum of element of the RDD 
+
+rdd3.max()
+
+Out[40]: 99
+
+rdd3.min()
+
+Out[41]: 0
+
+
+rdd3.stdev()
+
+Out[42]: 28.866070047722118
+
+rdd3.stats()
+
+Out[43]: (count: 100, mean: 49.5, stdev: 28.8660700477, max: 99.0, min: 0.0)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
