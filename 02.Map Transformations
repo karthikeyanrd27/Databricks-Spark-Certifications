@@ -1,0 +1,157 @@
+Map functions : 
+
+Apply function on each element on the RDD
+
+def add(x,y):
+    return x+y
+	
+	Out[50]: 9
+	
+a = lambda x,y:x+y
+a(4,5)
+
+Out[52]: 9
+
+Lamda funtion and normal function both are same. Only difference is function name is not reuired and will be used in minimum usins area 
+
+#01 Same element need to be populated 
+a = [1,1,2]
+b = sc.parallelize(a)
+b.collect()
+Out[55]: [1, 1, 2]
+b = b.map(lambda x:x)
+b.collect()
+Out[58]: [1, 1, 2]
+
+c= b.map(lambda x: x+2)
+Out[60]: [3, 3, 4]
+
+list of list :
+
+lis = [[1,2,3],[1,2,3],[4,5,6]]
+lisrdd = sc.parallelize(lis)
+lisrddmap = lisrdd.map(lambda x:x)
+lisrddmap.collect()
+[[1, 2, 3], [1, 2, 3], [4, 5, 6]]
+
+combine each element with same element 
+
+
+lis = [[1,2,3],[1,2,3],[4,5,6]]
+lisrdd = sc.parallelize(lis)
+lisrddmap = lisrdd.map(lambda x:x+x)
+lisrddmap.collect()
+
+Out[73]: [[1, 2, 3, 1, 2, 3], [1, 2, 3, 1, 2, 3], [4, 5, 6, 4, 5, 6]]
+
+
+
+lis = [[1,2,3],[1,2,3],[4,5,6]]
+lisrdd = sc.parallelize(lis)
+lisrddmap = lisrdd.map(lambda x:x[1]*x[2])
+lisrddmap.collect()
+
+
+Out[77]: [6, 6, 30]
+
+
+
+Reverse the list of the element :
+
+
+lis = [[1,2,3],[1,2,3],[4,5,6]]
+lisrdd = sc.parallelize(lis)
+lisrddmap = lisrdd.map(lambda x:x[::-1])
+lisrddmap.collect()
+
+
+Map function against tuple elements :
+
+
+tup = [(1,2),(1,2),(4,5)]
+a1 = sc.parallelize(tup)
+a1.collect()
+
+Out[82]: [(1, 2), (1, 2), (4, 5)]
+
+b1 = a1.map(lambda x:x[1])
+
+b1.collect()
+
+
+
+b1 = a1.map(lambda x:x[0])
+
+b1.collect()
+Out[87]: [1, 1, 4]
+
+
+rdd = sc.parallelize([[1,1,4],[2,2,5],[3,3,6]])
+a = rdd.map(lambda x : x)
+a.collect()
+Out[115]: [[1, 1, 4], [2, 2, 5], [3, 3, 6]]
+
+
+
+b = rdd.flatMap(lambda x : x)
+
+b.collect()
+
+Out[117]: [1, 1, 4, 2, 2, 5, 3, 3, 6]
+
+#Tuple based on the transformation 
+
+a = [(1,2),(1,4),(5,6)]
+b = sc.parallelize(a)
+b.collect()
+c =b.map(lambda x :x)
+c.collect()
+
+Out[126]: [(1, 2), (1, 4), (5, 6)]
+
+
+d =b.flatMap(lambda x:x)
+d.collect()
+
+Out[127]: [1, 2, 1, 4, 5, 6]
+
+
+flatMap: 
+Will be applied on each element and will be all value flatterned :
+
+Out[126]: [(1, 2), (1, 4), (5, 6)]
+
+
+e = b.map(lambda x:(x[1],x[0]))
+Out[131]: [(2, 1), (4, 1), (6, 5)]
+
+f = b.flatMap(lambda x : (x[1],x[0]))
+Out[134]: [2, 1, 4, 1, 6, 5]
+
+
+
+rdd5 = sc.parallelize([("a",["x","y","z"]),("b",["x","y","z"])])
+Out[140]: [('a', ['x', 'y', 'z']), ('b', ['x', 'y', 'z'])]
+map = rdd5.map(lambda x : x)
+
+
+%spark.pyspark
+print("Hello Spark " + str(sc.version))
+from pyspark import SparkContext
+from pyspark import HiveContext
+a = sc.parallelize([1,2])
+a.collect()
+
+Hello Spark 2.2.1
+[1, 2]
+
+
+
+
+
+
+
+
+
+
+
