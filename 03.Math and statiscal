@@ -1,0 +1,48 @@
+Math /Statistical 
+
+Sample transformations : 
+
+Syntax : sample(withreplacement,fraction,seed = none)
+
+x = [1,2,3,4,5,6,7,8,9,10]
+b = sc.parallelize(x)
+c =b.sample(True,1,5)
+c.collect()
+
+Out[18]: [1, 2, 5, 5, 6, 6, 7, 8, 8, 8, 9, 9, 9, 9, 10]
+
+
+Sample = True 
+Sample = False 
+
+Difference between withreplacement is True means
+
+Example , 
+
+10 balls in backets 
+
+taking white Ball 1 
+
+probalbilty 1/10
+
+Again we keep that ball in backets and taking another Ball .. 
+
+In This scenario also probality of white ball is 1/10
+
+
+Withreplacement = False 
+
+in this secneaio after taking white ball , probabilty of another ball would be 1/9 . this is concept		
+
+
+Random split : 
+
+We can take the sample based on the weight value 
+
+
+rdd = sc.parallelize(range(10))
+rdd.collect()
+test,train = rdd.randomSplit(weights=[0.3,0.7],seed =1)
+test.collect()
+train.collect()
+
